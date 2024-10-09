@@ -1,0 +1,35 @@
+{% extends 'base.html' %}
+{% load shop_tags %}
+{% load humanize %}
+
+{% block content %}
+<h1>{{ title }}</h1>
+
+<div class="row row-cols-1 row-cols-md-4 g-4">
+    {% for i in items %}
+    <div class="col">
+        <div class="card d-flex flex-column h-100">
+            {% if i.photos.all %}
+                <img src="{{i.photos.all.first}}" style="max-height: 200px; width: auto; object-fit: contain;">
+            {% endif %}
+            <div class="card-body mt-auto">
+                <p class="card-title">{{i.title | truncatechars:45}}</p>
+                {% if i.discount == 0 %}
+                  <h5 class="card-text">{{ i.price| intcomma }}$</h5>
+                  {% else %}
+                  <p>
+                      <span class="text-decoration-line-through">{{ i.price|intcomma }}$</span>
+                      <span class="text-danger">{{ i.price|calculate_discount:i.discount }}</span>
+                  </p>
+                {% endif %}
+                <a href="{% url 'edit_item' slug=i.slug %}" class="btn btn-primary">Edit</a>
+                <a href="{% url 'delete_item' slug=i.slug %}" class="btn btn-danger">Delete</a>
+            </div>
+        </div>
+    </div>
+    {% endfor %}
+</div>
+
+{% include 'include/pagination.html' %}
+
+{% endblock %}

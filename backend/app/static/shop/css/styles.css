@@ -1,0 +1,37 @@
+.custom-select {
+    width: 300px; /* Замените на желаемую ширину */
+}
+
+#carouselExampleControls {
+    width: 500px;
+    height: 400px;
+    object-fit: cover;
+    margin: left
+}
+.carousel-control-prev-icon {
+    background-image: none;
+    border: solid 2px black;
+    border-width: 0 2px 2px 0;
+    display: inline-block;
+    padding: 10px;
+    transform: rotate(135deg);
+}
+
+.carousel-control-next-icon {
+    background-image: none;
+    border: solid 2px black;
+    border-width: 0 2px 2px 0;
+    display: inline-block;
+    padding: 10px;
+    transform: rotate(-45deg);
+}
+.carousel-indicators button {
+  background-color: black;
+}
+
+.carousel-indicators .active {
+    background-color: black !important;
+}
+.carousel-indicators button {
+    background-color: gray !important;
+}

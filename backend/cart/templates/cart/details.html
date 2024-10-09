@@ -1,0 +1,59 @@
+{% extends 'base.html' %}
+{% load shop_tags %}
+{% load humanize %}
+
+{% block content %}
+    <br>
+    {% if cart.len > 0  %}
+        {% for i in cart %}
+            {% with item=i.item %}
+                <div style="display: flex; align-items: flex-start;" >
+                  {% if item.photo %}
+                    <img src="{{item.photo.url}}" style="max-width: 200px; object-fit: cover; margin-right: 20px;">
+                  {% endif %}
+                <div>
+                    <h2>{{ item.title }}</h2>
+                    {% if item.discount == 0 %}
+                      <h5 class="card-text">{{ item.price| intcomma }}$</h5>
+                      {% else %}
+                      <p>
+                          <span class="text-decoration-line-through">{{ item.price|intcomma }}$</span>
+                          <span class="text-danger">{{ item.price|calculate_discount:item.discount }}</span>
+                      </p>
+                    {% endif %}
+                    {{ i.quantity }} pieces at
+                    {% if item.discount == 0 %}
+                        {{ item.price}}
+                      {% else %}
+                        {{ item.price|calculate_discount:item.discount }}
+                    {% endif %}
+                    $ each.
+                    <br>
+                    Full price: <b>{{ i.total_price }}$</b>
+
+                  <form action="{% url 'cart:cart_add' item.id %}" method="post" class="mb-2 mt-2">
+                    {{ item.update_quantity_form.quantity }}
+                    {{ item.update_quantity_form.update }}
+                    <button type="submit" class="btn btn-secondary">Update</button>
+                    {% csrf_token %}
+                  </form>
+                  <form action="{% url 'cart:create-checkout-session' item.id i.quantity %}" method="POST" class="mb-2">
+                    {% csrf_token %}
+                    <button type="submit" class="btn btn-primary">Checkout</button>
+                  </form>
+                  <a href="{% url 'cart:cart_remove' item.id %}">Delete from cart</a>
+                </div>
+            </div>
+            <hr align="center" width="100%" size="4" color="black"/>
+
+
+            {% endwith %}
+        {% endfor %}
+    {% else %}
+        <br>
+        <h2>The order list is empty</h2>
+        <br>
+        <h3>You haven't ordered anything yet</h3>
+    {% endif %}
+
+{% endblock content %}

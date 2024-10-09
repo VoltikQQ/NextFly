@@ -1,0 +1,20 @@
+{% extends 'base.html' %}
+{% load widget_tweaks %}
+
+{% block content %}
+<h1>Регистрация</h1>
+
+<form method="post">
+    {% csrf_token %}
+    {% for f in form %}
+    <div class="form-group row">
+      <label for="{{ f.id_for_label }}" class="col-sm-3 col-form-label">{{ f.label }}:</label>
+      <div class="col-sm-10" style="max-width: 400px;">{{ f|add_class:"form-control" }}</div>
+    </div>
+    <p class="mt-1 mb-1 text-body-secondary"></p>
+    <div class="form-error text-danger">{{ f.errors }}</div>
+    {% endfor %}
+    <p><button type="submit" class="btn btn-primary">Register</button></p>
+</form>
+
+{% endblock %}

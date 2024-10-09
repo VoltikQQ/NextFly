@@ -1,0 +1,21 @@
+{% extends 'base.html' %}
+{% load widget_tweaks %}
+
+{% block content %}
+
+<form class="form-signin text-center" method="post">
+    {% csrf_token %}
+    <h1 class="h3 mb-3 fw-normal">Please login</h1>
+    <div class="form-error text-danger">{{ form.non_field_errors }}</div>
+    {% render_field form.username|append_attr:"class=form-control" placeholder="Login or E-mail" %}
+    <div class="form-error text-danger">{{ form.username.errors }}</div>
+    <p class="mt-1 mb-2 text-body-secondary"></p>
+    {% render_field form.password|append_attr:"placeholder=Password" class="form-control" %}
+    <div class="form-error text-danger">{{ form.password.errors }}</div>
+    <p class="mt-1 mb-4 text-body-secondary"></p>
+    <button class="btn btn-primary w-100 py-2" type="submit">Login</button>
+
+    <p class="mt-1 mb-5 text-body-secondary"><a href="{% url 'users:password_reset' %}">forgot password?</a></p>
+</form>
+
+{% endblock %}

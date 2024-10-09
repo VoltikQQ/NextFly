@@ -1,0 +1,40 @@
+.rate {
+    direction: rtl;
+    display: flex;
+    justify-content: left;
+}
+
+.rate input {
+    display: none;
+}
+
+.star {
+    font-size: 30px;
+    color: #ccc;
+    cursor: pointer;
+}
+
+.star:before {
+    content: '★';
+}
+
+.rate input:checked ~ .star {
+    color: #f39c12;
+}
+
+.star:hover,
+.star:hover ~ .star {
+    color: #f39c12;
+}
+
+.star {
+  font-size: 30px;
+  color: #ccc;
+}
+.star.checked {
+  color: #f39c12;
+}
+
+.checked {
+  color: orange;
+}

@@ -1,0 +1,77 @@
+{% extends 'base.html' %}
+{% load shop_tags %}
+{% load humanize %}
+{% load cache %}
+
+{% block content %}
+
+{% cache 500 item %}
+
+<div style="display: flex; align-items: flex-start;">
+
+  <div id="carouselExampleControls" class="carousel slide" data-bs-ride="carousel">
+    <div class="carousel-indicators">
+      {% for t in item.photos.all %}
+        <button type="button"
+            data-bs-target="#carouselExampleIndicators"
+            data-bs-slide-to="{{ forloop.counter0 }}"
+            class="{% if forloop.first %}active{% endif %}"
+            aria-current="{% if forloop.first %}true{% endif %}"
+            aria-label="Slide {{ forloop.counter }}">
+        </button>
+      {% endfor %}
+    </div>
+    <div class="carousel-inner">
+      {% for t in item.photos.all %}
+        <div class="carousel-item {% if forloop.first %}active{% endif %}">
+          <img src="{{ t.photo.url }}" class="d-block w-100" style="max-height: 400px; width: auto; object-fit: contain;">
+        </div>
+      {% endfor %}
+      <button class="carousel-control-prev" type="button" data-bs-target="#carouselExampleControls"  data-bs-slide="prev">
+        <span class="carousel-control-prev-icon" aria-hidden="true"></span>
+        <span class="visually-hidden">prev</span>
+      </button>
+      <button class="carousel-control-next" type="button" data-bs-target="#carouselExampleControls"  data-bs-slide="next">
+        <span class="carousel-control-next-icon" aria-hidden="true"></span>
+        <span class="visually-hidden">next</span>
+      </button>
+    </div>
+  </div>
+
+  <div>
+    <h1>{{ item.title }}</h1>
+    {% if item.author %}
+      <p>@{{ item.author }}</p>
+    {% endif %}
+        {% for j in 5|times %}
+            {% if j < item.avg_rating %}
+                <span class="fa fa-star checked"></span>
+            {% else %}
+                <span class="fa fa-star"></span>
+            {% endif %}
+        {% endfor %}</p>
+    {% if item.discount == 0 %}
+      <h5 class="card-text">{{ item.price| intcomma }}$</h5>
+      {% else %}
+      <p>
+          <span class="text-decoration-line-through">{{ item.price|intcomma }}$</span>
+          <span class="text-danger">{{ item.price|calculate_discount:item.discount }}</span>
+      </p>
+    {% endif %}
+    <p>{{ item.description|linebreaks }}</p>
+
+    <form action="{% url 'cart:cart_add' item.id %}" method="post">
+      {% csrf_token %}
+      {{ cart_item_form }}
+      <button type="submit" class="btn btn-primary">to cart</button>
+    </form>
+  </div>
+</div>
+
+{% endcache %}
+
+{% include 'recommend/recommendation.html' %}
+
+<script src="https://js.stripe.com/v3/"></script>
+
+{% endblock %}

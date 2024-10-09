@@ -1,0 +1,66 @@
+{% extends 'base.html' %}
+{% load shop_tags %}
+{% load humanize %}
+{% load cache %}
+{% load static %}
+
+{% block content %}
+
+
+<form method="get" class="d-flex align-items-center">
+    <label for="ordering" class="me-2">Ordering by:</label>
+    <select class="form-select custom-select me-2" aria-label="Default select example" name="ordering">
+        <option value="price" {% if request.GET.ordering == 'price' %}selected{% endif %}>Price</option>
+        <option value="-price" {% if request.GET.ordering == '-price' %}selected{% endif %}>Price (descending)</option>
+        <option value="-avg_rating" {% if request.GET.ordering == '-avg_rating' %}selected{% endif %}>Rating</option>
+        <option value="avg_rating" {% if request.GET.ordering == 'avg_rating' %}selected{% endif %}>Rating (ascending)</option>
+        <option value="time_create" {% if request.GET.ordering == 'time_create' %}selected{% endif %}>Time create</option>
+        <option value="-time_create" {% if request.GET.ordering == '-time_create' %}selected{% endif %}>Time create (descending)</option>
+    </select>
+    <button type="submit" class="btn btn-secondary">Order</button>
+</form>
+
+{% cache 500 item-list %}
+
+{% if items %}
+<div class="row row-cols-1 row-cols-md-4 g-4" style="margin-top: 20px;">
+    {% for i in items %}
+    <div class="col">
+        <div class="card h-100">
+            {% if i.photos.all %}
+                <img src="{{i.photos.all.first}}" style="max-height: 200px; width: auto; object-fit: contain;">
+            {% endif %}
+            <div class="card-body">
+                <p class="card-title">{{i.title | truncatechars:45}}</p>
+                {% if i.discount == 0 %}
+                <h5 class="card-text">{{ i.price| intcomma }}$</h5>
+                {% else %}
+                <p>
+                    <span class="text-decoration-line-through">{{ i.price|intcomma }}$</span>
+                    <span class="text-danger">{{ i.price|calculate_discount:i.discount }}</span>
+                </p>
+                {% endif %}
+                <p>
+                {% for j in 5|times %}
+                    {% if j < i.avg_rating %}
+                        <span class="fa fa-star checked"></span>
+                    {% else %}
+                        <span class="fa fa-star"></span>
+                    {% endif %}
+                {% endfor %}</p>
+                <a href="{{ i.get_absolute_url }}" class="btn btn-primary">View</a>
+            </div>
+        </div>
+    </div>
+    {% endfor %}
+</div>
+{% else %}
+    <h2>We don't have what you're looking for</h2>
+{% endif %}
+
+{% endcache %}
+
+{% include 'include/pagination.html' %}
+
+{% endblock %}
+

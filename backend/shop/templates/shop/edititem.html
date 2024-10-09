@@ -1,0 +1,35 @@
+{% extends 'base.html' %}
+{% load widget_tweaks %}
+
+{% block content %}
+<h1>{{ title }}</h1>
+<form action="" method="post" enctype="multipart/form-data">
+    {% csrf_token %}
+    {% for f in form %}
+    <div class="form-group row">
+      <label for="{{ f.id_for_label }}" class="col-sm-2 col-form-label">{{ f.label }}</label>
+      <div class="col-sm-10">{{ f }}</div>
+    </div>
+    <p class="mt-1 mb-2 text-body-secondary"></p>
+    <div class="form-error text-danger">{{ f.errors }}</div>
+    {% endfor %}
+
+    <h5>Current Images:</h5>
+    <div class="row">
+        {% for image in item.photos.all %}
+            <div class="col-3">
+                <img src="{{ image.photo.url }}" class="img-fluid" alt="Image" style="max-width: 100%; height: auto;">
+                <input type="checkbox" name="delete_images" value="{{ image.id }}"> Delete
+            </div>
+        {% endfor %}
+    </div>
+
+    <div class="form-group">
+        <label for="new_photos">Upload New Photos:</label>
+        <input type="file" name="new_photos" id="new_photos" multiple>
+    </div>
+
+    <p><button type="submit" class="btn btn-primary">Edit Item</button></p>
+</form>
+
+{% endblock %}
