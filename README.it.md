@@ -1,144 +1,150 @@
-============================
-
-NextFly Project Launcher
-
-============================
+\# NextFly Project Launcher
 
 
 
-NextFly è uno strumento batch per automatizzare la compilazione e l’avvio dei progetti locali.
-
-Permette di gestire più progetti, scambiare versioni JDK, avviare server e lanciare compilazioni Maven facilmente da un’unica interfaccia.
+NextFly è uno strumento batch progettato per automatizzare la compilazione e l’avvio di progetti locali. Consente di gestire più progetti, cambiare versioni di JDK, avviare server e compilare con Maven da un’unica interfaccia.
 
 
 
-=================================
-
-⦁   Struttura del Repository
-
-=================================
+---
 
 
+
+\## 📁 Struttura del Repository
+
+
+
+text
 
 NextFly/
 
 ├── scripts/
 
-│   └── NextFly\_launcher.bat  # Script principale per build e avvio
+│   └── NextFly\_launcher.bat      # Script principale per build e avvio
 
 ├── config/
 
-│   ├── config.env.example    # Esempio di configurazione (pubblico)
+│   ├── config.env.example        # Esempio di configurazione (pubblico)
 
-│   └── config.env            # Configurazione reale (locale, non versionata)
+│   └── config.env                # Configurazione reale (locale, non versionata)
 
-├── README.md		           # Versione inglese di questo documento
+├── README.md                     # Versione inglese di questo documento
 
-├── README.it.md              # Questo documento
+├── README.it.md                  # Questo documento (italiano)
 
-├── README.ru.md              # Versione russa di questo documento
+├── README.ru.md                  # Versione russa di questo documento
 
-└── .gitignore                # Documento di esclusione Git
+└── .gitignore                    # Regole di esclusione Git
 
 
 
-=================================
 
-⦁	Configuazione
 
-=================================
+---
 
 
 
-**Clona il repository:**
+\## ⚙️ Configurazione
 
 
 
-git clone https://github.com/AngelDragon999/NextFly.git
+1\. Clona il repository:
 
+&nbsp;  bash
 
+&nbsp;  git clone https://github.com/AngelDragon999/NextFly.git
 
-**Copia il file di esempio e personalizzalo:**
+&nbsp;  
 
 
 
-cd NextFly\\config
+2\. Copia il file di esempio e personalizzalo:
 
-copy config.env.example config.env
+&nbsp;  bash
 
+&nbsp;  cd NextFly/config
 
+&nbsp;  copy config.env.example config.env
 
-Apri config.env e aggiorna i percorsi dei tuoi progetti locali, JDK, Maven e server secondo il tuo ambiente.
+&nbsp;  
 
 
 
-===============================
+3\. Modifica `config.env`  
 
-⦁	Uso dello Script
+&nbsp;  Aggiorna i percorsi dei tuoi progetti locali, JDK, Maven e server secondo il tuo ambiente.
 
-===============================
 
 
+---
 
-Apri il prompt dei comandi nella cartella scripts/:
 
 
+\## 🚀 Uso dello Script
 
-cd ..\\scripts
 
 
+1\. Apri il prompt dei comandi nella cartella `scripts/`:
 
-Lancia lo script:
+&nbsp;  bash
 
+&nbsp;  cd ..\\scripts
 
+&nbsp;  
 
-NextFly\_launcher.bat
 
 
+2\. Esegui lo script:
 
-Segui il menu interattivo per:
+&nbsp;  bash
 
+&nbsp;  NextFly\_launcher.bat
 
+&nbsp;  
 
-\- Avviare i server dei progetti
 
-\- Compilare i progetti con Maven
 
-\- Scambiare tra JDK 8, JDK 21 e altri che puoi aggiungere.
+3\. Segui il menu interattivo per:
 
+&nbsp;  - Avviare i server dei progetti
 
+&nbsp;  - Compilare i progetti con Maven
 
-===============================
+&nbsp;  - Cambiare tra JDK 8, JDK 21 e altre versioni personalizzabili
 
-⦁	Note Importanti
 
-===============================
 
+---
 
 
-\- Non commitare mai config.env, contiene percorsi locali e configurazioni sensibili.
 
-\- Tutti gli script leggono le variabili da config.env per funzionare correttamente.
+\## ⚠️ Note Importanti
 
-\- Per aggiungere nuovi script, mettili nella cartella scripts/ e aggiorna il README con le istruzioni.
 
 
+\- Non committare mai `config.env`: contiene percorsi locali e dati sensibili.
 
-===============================
+\- Tutti gli script leggono le variabili da `config.env` per funzionare correttamente.
 
-⦁	Vantaggi
+\- Per aggiungere nuovi script, inseriscili nella cartella `scripts/` e aggiorna il README con le istruzioni.
 
-===============================
+
+
+---
+
+
+
+\## ✅ Vantaggi
 
 
 
 1\. Gestione centralizzata dei progetti
 
-2\. Evita errori di percorso e JDK
+2\. Evita errori di percorso e di versione JDK
 
 3\. Facilita la distribuzione e la collaborazione tramite Git
 
-4\. Pronto per aggiungere nuovi script in futuro
+4\. Pronto per estensioni e nuovi script futuri
 
 
 
