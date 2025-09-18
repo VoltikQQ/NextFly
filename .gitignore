@@ -1,0 +1,13 @@
+# Windows specific
+Thumbs.db
+Desktop.ini
+
+# Config files
+config/config.env
+
+# Maven / build outputs
+**/target/
+**/out/
+**/bin/
+**/logs/
+*.log
