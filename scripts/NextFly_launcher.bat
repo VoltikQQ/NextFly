@@ -1,3 +1,5 @@
+rem NextFly Project Launcher - Copyright (c) 2024 AngelDragon999
+rem Licensed under the MIT License. See LICENSE for details.
 @echo off
 cls
 rem ===============================
