@@ -268,7 +268,7 @@ echo.
 echo Removing old package project_b_web
 del %SERVERS%%R2P_WEB_STANDALONE%\project_b_web.*
 
-call mvn -T 1 --settings %MAVEN_HOME%%PROJECT_B_MAVEN_CONFIG% -DXms4096m -DXmx4096m -DXX:PermSize=1024m -DXss240m -Dmaven.wagon.http.ssl.insecure=true -Dmaven.test.skip=true clean install -pl project_b_web,r2p-reports -am
+call mvn -T 1 --settings %MAVEN_HOME%%PROJECT_B_MAVEN_CONFIG% -DXms4096m -DXmx4096m -DXX:PermSize=1024m -DXss240m -Dmaven.wagon.http.ssl.insecure=true -Dmaven.test.skip=true clean install -pl project_b_web -am
 
 copy %R2P_WEB%\r2p-reports\target\project_b_api.war %SERVERS%%R2P_WEB_STANDALONE%\project_b_api.war
 copy %R2P_WEB%\project_b_web\target\project_b_web.war %SERVERS%%R2P_WEB_STANDALONE%\project_b_web.war
